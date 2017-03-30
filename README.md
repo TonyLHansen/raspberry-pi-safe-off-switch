@@ -24,7 +24,7 @@ Issue 52 of TheMagPi had an excellent article on how to connect a Reset Button.
 * [Raspberry Pi](raspberrypi.org) (any model)
 * Momentary push button switches, such as [these](https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=Momentary+Push+Button+Switch+cable+motherboard)
 
-![momentary switch connected to pins 39 and 40](raspi3.jpg)
+[![momentary switch connected to pins 39 and 40](raspi3.jpg)](raspi3.jpg)
 
 ![a safe off switch](raspi2.jpg)
 
@@ -154,10 +154,11 @@ right before powering down the Raspberry Pi.
 
 The basic structure of the code remains the same.
 At the beginning, we need to initialize the sound system, and then create the sound clips.
-When the button is pressed, we start playing the "I'm melting" clip, looping it enough times 
+When the button is pressed, we start playing the "I'm melting" [clip](ImMeltingMelting.ogg), looping it enough times 
 for it to last the hold time.
 If the button is released early or the hold time has elapsed, we need to stop that clip. 
-When the hold time has elapsed, we then start playing the "There's no place like home" clip and power down.
+When the hold time has elapsed, we then start playing the "There's no place like home" [clip](NoPlaceLikeHome.ogg)
+and power down.
 
 [shutdown-melting.py](shutdown-melting.py)
 
