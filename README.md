@@ -24,12 +24,17 @@ Issue 52 of TheMagPi had an excellent article on how to connect a Reset Button.
 * [Raspberry Pi](raspberrypi.org) (any model)
 * Momentary push button switches, such as [these](https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=Momentary+Push+Button+Switch+cable+motherboard)
 
-[![momentary switch connected to pins 39 and 40](raspi3.jpg)](raspi3.jpg)
-
+## Pictures
+### A Safe Off Switch
 ![a safe off switch](raspi2.jpg)
 
+### Momentary switch connected to pins 39 and 40
+[![momentary switch connected to pins 39 and 40](raspi3.jpg)](raspi3.jpg)
+
+### A reset button on the same system
 ![A reset button on the same system](raspi-reset.jpg)
 
+### Example of Both an Off and Reset Switch on a Raspberry Pi Zero. Right angle headers are used for a compact connection. The switches are mounted directly onto an Adafruit case.
 ![Example of Both an Off and Reset Switch on a Raspberry Pi Zero. Right angle headers are used for a compact connection. The switches are mounted directly onto an Adafruit case.](raspizero.jpg)
 
 ## Using GPIO Zero
@@ -106,7 +111,7 @@ As before, the important work has been moved into functions named when_pressed()
 when_released() and the same shutdown() function we used before. 
 These are assigned to their corresponding button events.
 
-## Using the on-board LEDs
+### Using the on-board LEDs
 Instead of wiring in your own LED, many versions of the Raspberry Pi come with several 
 LEDs already on them that can be controlled. 
 The Raspberry Pi A+, B+ and Pi2 boards have an Activity Status LED and a Power LED that
@@ -125,8 +130,7 @@ If you cannot use the on-board LEDs, you can connect an LED (with a small resist
 the GPIO of your choice.
 See numerous other articles on how to connect an LED to a GPIO pin.
 
-
-## Progressive Blinking
+### Progressive Blinking
 
 To make it more obvious what is happening, it is possible to be more dynamic in your feedback. 
 For example, how about starting with a slow blink, but progressively blink faster and faster? 
