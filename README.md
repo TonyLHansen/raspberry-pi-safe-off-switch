@@ -25,11 +25,11 @@ Issue 52 of TheMagPi had an excellent article on how to connect a Reset Button.
 * Momentary push button switches, such as [these](https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=Momentary+Push+Button+Switch+cable+motherboard)
 
 ## Pictures
+### Momentary switch connected to pins 39 and 40
+![momentary switch connected to pins 39 and 40](raspi3.jpg)
+
 ### A Safe Off Switch
 ![a safe off switch](raspi2.jpg)
-
-### Momentary switch connected to pins 39 and 40
-[![momentary switch connected to pins 39 and 40](raspi3.jpg)](raspi3.jpg)
 
 ### A reset button on the same system
 ![A reset button on the same system](raspi-reset.jpg)
@@ -40,11 +40,19 @@ Issue 52 of TheMagPi had an excellent article on how to connect a Reset Button.
 ## Using GPIO Zero
 With the GPIO Zero library module, the Python code to deal with a button 
 press becomes extremely simple. Assuming your button is connected between
-GPIO 21 and Ground, the code can look like as easy as [shutdown-press-simple.py](shutdown-press-simple.py):
+GPIO 21 and Ground, the code can look like as easy as [this](shutdown-press-simple.py):
+
+``` python
+#!/usr/bin/env python3
+from gpiozero import Button
+import os
+Button(21).wait_for_press()
+os.system("sudo poweroff")
+```
 
 This code creates a button on GPIO 21, waits for it to be pressed, 
 and then executes the system command to power down the Raspberry Pi.
-GPIO 21 is nice because it’s on pin 40 of the 40-pin header and sits
+GPIO 21 is nice because it's on pin 40 of the 40-pin header and sits
 right next to a ground connection on pin 39. This combination makes 
 it difficult for an off switch to get plugged in incorrectly. 
 On a 26-pin header, GPIO 7 is similarly situated at the bottom there 
@@ -74,6 +82,23 @@ It would be better if you needed to hold the button down for several
 seconds before everything powers down.
 
 [shutdown-with-hold.py](shutdown-with-hold.py)
+``` python
+#!/usr/bin/env python3
+from gpiozero import Button
+from signal import pause
+import os, sys
+
+offGPIO = int(sys.argv[1]) if len(sys.argv) >= 2 else 21
+holdTime = int(sys.argv[2]) if len(sys.argv) >= 3 else 6
+
+# the function called to shut down the RPI
+def shutdown():
+    os.system("sudo poweroff")
+
+btn = Button(offGPIO, hold_time=holdTime)
+btn.when_held = shutdown
+pause()    # handle the button presses in the background
+```
 
 Instead of hard-coding the GPIO number 21 and the hold time, this code 
 does a few things differently.
@@ -81,7 +106,7 @@ First, it defines variables to hold these numbers at the top of the code.
 For a program this small, declaring the values at the top is not necessary, 
 but it is good practice to declare any configurable variables near the top 
 of the code. 
-When making changes later, you won’t have to hunt through the code to find 
+When making changes later, you won't have to hunt through the code to find 
 these variables.
 Secondly, it allows the GPIO number and hold time to be overridden on the 
 command line, so that you can change them later without modifying the program.
@@ -104,11 +129,11 @@ that anything is really happening while you have the button pressed down.
 Fortunately, GPIO Zero allows us to do much more with a button press, as well as controlling
 other devices.
 For example, we can turn an LED on and off, or set it blinking, when the button is first 
-pressed by attaching to the button’s when_pressed event.
+pressed by attaching to the button's `when_pressed` event.
 We need to ensure that the LED is turned off if the button is not held down for the entire 
 length of time.
 This can be accomplished by attaching to the when_released event.
-As before, the important work has been moved into functions named `when_pressed()`, 
+As before, the important work has been moved into functions named `when_pressed()`,
 `when_released()` and the same `shutdown()` function we used before. 
 These are assigned to their corresponding button events.
 
@@ -123,12 +148,49 @@ The Raspberry Pi Zero and Computation Modules have the Activity Status LED on GP
 (The GPIO Zero library does not yet have a way to control the LEDs on the Pi3.)
 
 [shutdown-led-simple.py](shutdown-led-simple.py)
+``` python
+#!/usr/bin/env python3
+from gpiozero import Button, LED
+from signal import pause
+import os, sys
+
+offGPIO = int(sys.argv[1]) if len(sys.argv) >= 2 else 21
+holdTime = int(sys.argv[2]) if len(sys.argv) >= 3 else 6
+ledGPIO = int(sys.argv[3]) if len(sys.argv) >= 4 else 2
+
+def when_pressed():
+    # start blinking with ½ second rate
+    led.blink(on_time=0.5, off_time=0.5)
+
+def when_released():
+    # be sure to turn the LEDs off if we release early
+    led.off()
+
+def shutdown():
+    os.system("sudo poweroff")
+
+led = LED(ledGPIO)
+btn = Button(offGPIO, hold_time=holdTime)
+btn.when_held = shutdown
+btn.when_pressed = when_pressed
+btn.when_released = when_released
+pause()
+```
 
 The GPIO Zero library will print a warning message if you try using either of these LEDs. 
 The workaround for now is to turn off the warning message temporarily. 
 With current versions of the GPIO Zero library you are using, you can use:
 
 [turn-off-power-led-warnings.py](turn-off-power-led-warnings.py)
+``` python
+import warnings
+...
+ledGPIO = 47
+...
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore")
+    led = LED(ledGPIO)
+```
 
 If you cannot use the on-board LEDs, you can connect an LED (with a small resistor) to 
 the GPIO of your choice.
@@ -146,11 +208,51 @@ In this code, we switched to using GPIO Zero's LEDBoard() class to blink multipl
 The constructor for `Button()` has a new parameter (`hold_repeat=True`) and we've set the hold
 time to 1 second instead of the full hold time.
 The `when_pressed()` and `when_released()` functions remain the same, but the `shutdown()` function 
-now declares its button parameter, and asks the button how long it’s been pressed so far. 
+now declares its button parameter, and asks the button how long it's been pressed so far. 
 The blink rate is then updated accordingly. 
 When the maximum hold time is finally passed, only at that time is the `poweroff` system command executed.
 
 [shutdown-ledboard.py](shutdown-ledboard.py)
+``` python
+#!/usr/bin/env python3
+from gpiozero import Button, LEDBoard
+from signal import pause
+import warnings, os, sys
+
+offGPIO = int(sys.argv[1]) if len(sys.argv) >= 2 else 21
+offtime = int(sys.argv[2]) if len(sys.argv) >= 3 else 6
+offtime = 6       # shut down after offtime seconds
+mintime = 1       # notice switch after mintime seconds
+actledGPIO = 47   # activity LED
+powerledGPIO = 35 # power LED
+
+def shutdown(b):
+    # find how long the button has been held
+    p = b.pressed_time
+    # blink rate will increase the longer we hold
+    # the button down. E.g., at 2 seconds, use ¼ second rate.
+    leds.blink(on_time=0.5/p, off_time=0.5/p)
+    if p > offtime:
+        os.system("sudo poweroff")
+
+def when_pressed():
+    # start blinking with ½ second rate
+    leds.blink(on_time=0.5, off_time=0.5)
+
+def when_released():
+    # be sure to turn the LEDs off if we release early
+    leds.off()
+
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore")
+    leds = LEDBoard(actledGPIO, powerledGPIO)
+
+btn = Button(offGPIO, hold_time=mintime, hold_repeat=True)
+btn.when_held = shutdown
+btn.when_pressed = when_pressed
+btn.when_released = when_released
+pause()
+```
 
 ## Playing Sounds?
 If you have a speaker connected to your Raspberry Pi, you could play audio clips 
@@ -169,13 +271,51 @@ When the hold time has elapsed, we then start playing the "There's no place like
 and power down.
 
 [shutdown-melting.py](shutdown-melting.py)
+``` python
+#!/usr/bin/env python3
+from gpiozero import Button
+from signal import pause
+import pygame.mixer
+from pygame.mixer import Sound
+import time, os
+
+holdTime = 10
+offGPIO = 21
+
+pygame.mixer.init()
+melting = Sound("ImMeltingMelting.ogg")
+nohome = Sound("NoPlaceLikeHome.ogg")
+
+def shutdown():
+    # stop playing one sound and switch to another
+    melting.stop()
+    nohome.play()
+    # give it a chance to play
+    time.sleep(1)
+    # and shutdown for real
+    os.system("sudo poweroff")
+
+def when_pressed():
+    # start playing
+    melting.play(loops=holdTime/melting.get_length())
+
+def when_released():
+    # stop playing if released early
+    melting.stop()
+
+btn = Button(offGPIO, hold_time=holdTime)
+btn.when_held = shutdown
+btn.when_pressed = when_pressed
+btn.when_released = when_released
+pause()
+```
 
 ## Going Further
 Can you think of other ways to provide feedback while pressing the hold button? 
 How about using a buzzer, or popping up a message on a screen? Let your imagination run wild. :) 
 
 Can you think of other ways to be signaled that it is time to turn off? 
-How about watching the “low battery” signal from a battery pack? 
+How about watching the "low battery" signal from a battery pack? 
 What else can be used to trigger a shutdown?
 
 Now, which of your projects are you going to add shutdown and reset buttons to?
