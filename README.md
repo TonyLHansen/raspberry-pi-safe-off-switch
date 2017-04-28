@@ -264,10 +264,10 @@ right before powering down the Raspberry Pi.
 
 The basic structure of the code remains the same.
 At the beginning, we need to initialize the sound system, and then create the sound clips.
-When the button is pressed, we start playing the "I'm melting" [clip](ImMeltingMelting.ogg), looping it enough times 
+When the button is pressed, we start playing the "I'm melting" [clip](sounds/ImMeltingMelting.ogg), looping it enough times 
 for it to last the hold time.
 If the button is released early or the hold time has elapsed, we need to stop that clip. 
-When the hold time has elapsed, we then start playing the "There's no place like home" [clip](NoPlaceLikeHome.ogg)
+When the hold time has elapsed, we then start playing the "There's no place like home" [clip](sounds/NoPlaceLikeHome.ogg)
 and power down.
 
 [shutdown-melting.py](python/shutdown-melting.py)
