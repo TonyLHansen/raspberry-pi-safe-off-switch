@@ -1,0 +1,21 @@
+#!/usr/bin/env perl
+
+use strict vars;
+
+while (<>) {
+    if (/^INCLUDE (.*)$/) {
+        my $fn = $1;
+	if (open(my $fd, "<", $fn)) {
+	    print "``` python\n";
+	    while (<$fd>) {
+		print $_;
+	    }
+	    close($fd);
+	    print "```\n";
+	} else {
+	    print STDERR "Cannot open '$fn': $!\n";
+	}
+    } else {
+	print $_;
+    }
+}
