@@ -26,21 +26,21 @@ Issue 52 of TheMagPi had an excellent article on how to connect a Reset Button.
 
 ## Pictures
 ### Momentary switch connected to pins 39 and 40
-![momentary switch connected to pins 39 and 40](raspi3.jpg)
+![momentary switch connected to pins 39 and 40](pictures/raspi3.jpg)
 
 ### A Safe Off Switch
-![a safe off switch](raspi2.jpg)
+![a safe off switch](pictures/raspi2.jpg)
 
 ### A reset button on the same system
-![A reset button on the same system](raspi-reset.jpg)
+![A reset button on the same system](pictures/raspi-reset.jpg)
 
 ### Example of Both an Off and Reset Switch on a Raspberry Pi Zero. Right angle headers are used for a compact connection. The switches are mounted directly onto an Adafruit case.
-![Example of Both an Off and Reset Switch on a Raspberry Pi Zero. Right angle headers are used for a compact connection. The switches are mounted directly onto an Adafruit case.](raspizero.jpg)
+![Example of Both an Off and Reset Switch on a Raspberry Pi Zero. Right angle headers are used for a compact connection. The switches are mounted directly onto an Adafruit case.](pictures/raspizero.jpg)
 
 ## Using GPIO Zero
 With the GPIO Zero library module, the Python code to deal with a button 
 press becomes extremely simple. Assuming your button is connected between
-GPIO 21 and Ground, the code can look like as easy as [this](shutdown-press-simple.py):
+GPIO 21 and Ground, the code can look like as easy as [this](python/shutdown-press-simple.py):
 
 ``` python
 #!/usr/bin/env python3
@@ -81,7 +81,7 @@ of the button will shut your Raspberry Pi down.
 It would be better if you needed to hold the button down for several
 seconds before everything powers down.
 
-[shutdown-with-hold.py](shutdown-with-hold.py)
+[shutdown-with-hold.py](python/shutdown-with-hold.py)
 ``` python
 #!/usr/bin/env python3
 from gpiozero import Button
@@ -147,7 +147,7 @@ not provide access to the Power LED.)
 The Raspberry Pi Zero and Computation Modules have the Activity Status LED on GPIO 47.
 (The GPIO Zero library does not yet have a way to control the LEDs on the Pi3.)
 
-[shutdown-led-simple.py](shutdown-led-simple.py)
+[shutdown-led-simple.py](python/shutdown-led-simple.py)
 ``` python
 #!/usr/bin/env python3
 from gpiozero import Button, LED
@@ -181,7 +181,7 @@ The GPIO Zero library will print a warning message if you try using either of th
 The workaround for now is to turn off the warning message temporarily. 
 With current versions of the GPIO Zero library you are using, you can use:
 
-[turn-off-power-led-warnings.py](turn-off-power-led-warnings.py)
+[turn-off-power-led-warnings.py](python/turn-off-power-led-warnings.py)
 ``` python
 import warnings
 ...
@@ -212,7 +212,7 @@ now declares its button parameter, and asks the button how long it's been presse
 The blink rate is then updated accordingly. 
 When the maximum hold time is finally passed, only at that time is the `poweroff` system command executed.
 
-[shutdown-ledboard.py](shutdown-ledboard.py)
+[shutdown-ledboard.py](python/shutdown-ledboard.py)
 ``` python
 #!/usr/bin/env python3
 from gpiozero import Button, LEDBoard
@@ -270,7 +270,7 @@ If the button is released early or the hold time has elapsed, we need to stop th
 When the hold time has elapsed, we then start playing the "There's no place like home" [clip](NoPlaceLikeHome.ogg)
 and power down.
 
-[shutdown-melting.py](shutdown-melting.py)
+[shutdown-melting.py](python/shutdown-melting.py)
 ``` python
 #!/usr/bin/env python3
 from gpiozero import Button
