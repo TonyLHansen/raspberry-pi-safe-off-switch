@@ -42,7 +42,7 @@ With the GPIO Zero library module, the Python code to deal with a button
 press becomes extremely simple. Assuming your button is connected between
 GPIO 21 and Ground, the code can look like as easy as [this](python/shutdown-press-simple.py):
 
-INCLUDE python/shutdown-press-simple.py
+INCLUDE ../python/shutdown-press-simple.py
 
 This code creates a button on GPIO 21, waits for it to be pressed, 
 and then executes the system command to power down the Raspberry Pi.
@@ -76,7 +76,7 @@ It would be better if you needed to hold the button down for several
 seconds before everything powers down.
 
 [shutdown-with-hold.py](python/shutdown-with-hold.py)
-INCLUDE python/shutdown-with-hold.py
+INCLUDE ../python/shutdown-with-hold.py
 
 Instead of hard-coding the GPIO number 21 and the hold time, this code 
 does a few things differently.
@@ -126,14 +126,14 @@ The Raspberry Pi Zero and Computation Modules have the Activity Status LED on GP
 (The GPIO Zero library does not yet have a way to control the LEDs on the Pi3.)
 
 [shutdown-led-simple.py](python/shutdown-led-simple.py)
-INCLUDE python/shutdown-led-simple.py
+INCLUDE ../python/shutdown-led-simple.py
 
 The GPIO Zero library will print a warning message if you try using either of these LEDs. 
 The workaround for now is to turn off the warning message temporarily. 
 With current versions of the GPIO Zero library you are using, you can use:
 
 [turn-off-power-led-warnings.py](python/turn-off-power-led-warnings.py)
-INCLUDE python/turn-off-power-led-warnings.py
+INCLUDE ../python/turn-off-power-led-warnings.py
 
 If you cannot use the on-board LEDs, you can connect an LED (with a small resistor) to 
 the GPIO of your choice.
@@ -156,7 +156,7 @@ The blink rate is then updated accordingly.
 When the maximum hold time is finally passed, only at that time is the `poweroff` system command executed.
 
 [shutdown-ledboard.py](python/shutdown-ledboard.py)
-INCLUDE python/shutdown-ledboard.py
+INCLUDE ../python/shutdown-ledboard.py
 
 ## Playing Sounds?
 If you have a speaker connected to your Raspberry Pi, you could play audio clips 
@@ -175,7 +175,7 @@ When the hold time has elapsed, we then start playing the "There's no place like
 and power down.
 
 [shutdown-melting.py](python/shutdown-melting.py)
-INCLUDE python/shutdown-melting.py
+INCLUDE ../python/shutdown-melting.py
 
 ## Going Further
 Can you think of other ways to provide feedback while pressing the hold button? 
