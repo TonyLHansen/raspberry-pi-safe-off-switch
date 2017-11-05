@@ -17,7 +17,7 @@ This article focuses on doing something useful with those switches and LEDs.
 
 The safe off switch is complementary to a reset switch, which is the best method to start the
 Raspberry Pi back up again.
-Issue 52 of TheMagPi had an excellent article on how to connect a Reset Button.
+Issue 42 of TheMagPi had an excellent article (Pi Zero Reset Switch) on how to connect a Reset Button.
 
 ## You'll Need
 
