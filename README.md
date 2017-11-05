@@ -71,7 +71,16 @@ Then add a line to the end of /etc/rc.local to run it at boot time:
 
 ```shell
 $ sudo su
-# echo '~pi/shutdown-press-simple.py'  >> /etc/rc.local
+# echo '~pi/shutdown-press-simple.py &'  >> /etc/rc.local
+```
+
+
+Note: With sone versions of Linux, there may be an "`exit 0`" at the end of `/etc/rc.local`. 
+If yours does, the call to your shutdown scipt will not be done.
+You might want to verify this by editing the file and adjusting the lines accordingly.
+
+```shell
+$ sudo nano /etc/rc.local
 ```
 
 Now after rebooting, your script will be running and listening for 
