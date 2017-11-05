@@ -1,7 +1,7 @@
 # Add a Safe Off Switch to Power Down Your Raspberry Pi
 
 Add a switch to your Raspberry Pi to safely shut it down without pulling the power.
-(A version of this article appeared in Issue 
+(A version of this article appeared in
 [Issue 57](https://www.raspberrypi.org/magpi-issues/MagPi57.pdf) of The MagPi.)
 
 ## Intro
