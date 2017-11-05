@@ -2,7 +2,7 @@
 
 Add a switch to your Raspberry Pi to safely shut it down without pulling the power.
 (A version of this article appeared in Issue 
-[Issue 57|https://www.raspberrypi.org/magpi-issues/MagPi57.pdf] of The MagPi.)
+[Issue 57](https://www.raspberrypi.org/magpi-issues/MagPi57.pdf) of The MagPi.)
 
 ## Intro
 To keep prices down, the Raspberry Pi is missing something that most electronic devices come with:
