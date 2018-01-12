@@ -8,7 +8,7 @@ holdTime = int(sys.argv[2]) if len(sys.argv) >= 3 else 6
 ledGPIO = int(sys.argv[3]) if len(sys.argv) >= 4 else 2
 
 def when_pressed():
-    # start blinking with ½ second rate
+    # start blinking with 1/2 second rate
     led.blink(on_time=0.5, off_time=0.5)
 
 def when_released():

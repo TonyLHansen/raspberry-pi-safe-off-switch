@@ -14,13 +14,13 @@ def shutdown(b):
     # find how long the button has been held
     p = b.pressed_time
     # blink rate will increase the longer we hold
-    # the button down. E.g., at 2 seconds, use ¼ second rate.
+    # the button down. E.g., at 2 seconds, use 1/4 second rate.
     leds.blink(on_time=0.5/p, off_time=0.5/p)
     if p > offtime:
         os.system("sudo poweroff")
 
 def when_pressed():
-    # start blinking with ½ second rate
+    # start blinking with 1/2 second rate
     leds.blink(on_time=0.5, off_time=0.5)
 
 def when_released():
