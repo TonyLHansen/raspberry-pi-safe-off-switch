@@ -1,8 +1,6 @@
 # Add a Safe Off Switch to Power Down Your Raspberry Pi
 
 Add a switch to your Raspberry Pi to safely shut it down without pulling the power.
-(A version of this article appeared in
-[Issue 57](https://www.raspberrypi.org/magpi-issues/MagPi57.pdf) of The MagPi.)
 
 ## Intro
 To keep prices down, the Raspberry Pi is missing something that most electronic devices come with:
@@ -19,7 +17,7 @@ This article focuses on doing something useful with those switches and LEDs.
 
 The safe off switch is complementary to a reset switch, which is the best method to start the
 Raspberry Pi back up again.
-Issue 42 of TheMagPi had an excellent article (Pi Zero Reset Switch) on how to connect a Reset Button.
+Issue 52 of TheMagPi had an excellent article on how to connect a Reset Button.
 
 ## You'll Need
 
@@ -60,6 +58,12 @@ it difficult for an off switch to get plugged in incorrectly.
 On a 26-pin header, GPIO 7 is similarly situated at the bottom there 
 on pin 26, next to a ground connection on pin 25.
 
+If you don't mind losing your I2C connectivity, an alternative choice would be GPIO 3, 
+situated on pin 5.
+What is particularly nice about GPIO 3 is that it **also** acts as a reset pin 
+when the computer is powered down.
+By using GPIO 3, you can use a single button for **both** an ON and OFF switch.
+
 Create the script on your Raspberry Pi using your favorite text editor
 (e.g., nano, vim or emacs), as in
 
@@ -71,16 +75,7 @@ Then add a line to the end of /etc/rc.local to run it at boot time:
 
 ```shell
 $ sudo su
-# echo '~pi/shutdown-press-simple.py &'  >> /etc/rc.local
-```
-
-
-Note: With sone versions of Linux, there may be an "`exit 0`" at the end of `/etc/rc.local`. 
-If yours does, the call to your shutdown scipt will not be done.
-You might want to verify this by editing the file and adjusting the lines accordingly.
-
-```shell
-$ sudo nano /etc/rc.local
+# echo '~pi/shutdown-press-simple.py'  >> /etc/rc.local
 ```
 
 Now after rebooting, your script will be running and listening for 
