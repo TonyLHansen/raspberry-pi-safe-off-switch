@@ -5,7 +5,6 @@ import warnings, os, sys
 
 offGPIO = int(sys.argv[1]) if len(sys.argv) >= 2 else 21
 offtime = int(sys.argv[2]) if len(sys.argv) >= 3 else 6
-offtime = 6       # shut down after offtime seconds
 mintime = 1       # notice switch after mintime seconds
 actledGPIO = 47   # activity LED
 powerledGPIO = 35 # power LED
