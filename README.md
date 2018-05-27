@@ -65,10 +65,11 @@ when the computer is powered down.
 By using GPIO 3, you can use a single button for **both** an ON and OFF switch.
 
 Create the script on your Raspberry Pi using your favorite text editor
-(e.g., nano, vim or emacs), as in
+(e.g., nano, vim or emacs), and make certain that it's executable, as in
 
 ```shell
 $ nano shutdown-press-simple.py
+$ chmod a+x shutdown-press-simple.py
 ```
 
 Then add a line to the end of /etc/rc.local to run it at boot time:
@@ -76,6 +77,15 @@ Then add a line to the end of /etc/rc.local to run it at boot time:
 ```shell
 $ sudo su
 # echo '~pi/shutdown-press-simple.py'  >> /etc/rc.local
+```
+
+If your /etc/rc.local ends with an `exit` statement, this new line will be ignored because it is after the exit statement.
+Run `tail /etc/rc.local` to check.
+If so, use your favorite editor to move the lines around so that the invocation of the python script goes before the exit statement.)
+
+```shell
+$ tail /etc/rc.local
+$ sudo nano /etc/rc.local
 ```
 
 Now after rebooting, your script will be running and listening for 
@@ -227,7 +237,6 @@ import warnings, os, sys
 
 offGPIO = int(sys.argv[1]) if len(sys.argv) >= 2 else 21
 offtime = int(sys.argv[2]) if len(sys.argv) >= 3 else 6
-offtime = 6       # shut down after offtime seconds
 mintime = 1       # notice switch after mintime seconds
 actledGPIO = 47   # activity LED
 powerledGPIO = 35 # power LED
