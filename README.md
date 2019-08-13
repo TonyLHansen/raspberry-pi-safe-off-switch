@@ -59,7 +59,7 @@ On a 26-pin header, GPIO 7 is similarly situated at the bottom there
 on pin 26, next to a ground connection on pin 25.
 
 If you don't mind losing your I2C connectivity, an alternative choice would be GPIO 3, 
-situated on pin 5.
+situated on pin 5, right next to the ground connection on pin 6.
 What is particularly nice about GPIO 3 is that it **also** acts as a reset pin 
 when the computer is powered down.
 By using GPIO 3, you can use a single button for **both** an ON and OFF switch.
