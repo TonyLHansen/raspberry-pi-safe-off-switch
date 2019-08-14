@@ -15,10 +15,6 @@ Lots of articles are available to tell you how to use a breadboard to connect a 
 to a Raspberry Pi's GPIO pins.
 This article focuses on doing something useful with those switches and LEDs.
 
-The safe off switch is complementary to a reset switch, which is the best method to start the
-Raspberry Pi back up again.
-Issue 52 of TheMagPi had an excellent article on how to connect a Reset Button.
-
 ## You'll Need
 
 * [Raspberry Pi](raspberrypi.org) (any model)
@@ -36,6 +32,32 @@ Issue 52 of TheMagPi had an excellent article on how to connect a Reset Button.
 
 ### Example of Both an Off and Reset Switch on a Raspberry Pi Zero. Right angle headers are used for a compact connection. The switches are mounted directly onto an Adafruit case.
 ![Example of Both an Off and Reset Switch on a Raspberry Pi Zero. Right angle headers are used for a compact connection. The switches are mounted directly onto an Adafruit case.](pictures/raspizero.jpg)
+
+## Reset Buttons
+The safe off switch is complementary to a reset switch, 
+Issue 52 of TheMagPi had an excellent article on how to connect a Reset Button.
+
+A reset button has several uses. The primary purpose is to start the Raspberry Pi up again from a powered-off state.
+It is preferred over pulling the power connector out and putting it back in.
+
+Depending on which connector is being used for the reset switch, the reset button can ALSO be pressed 
+while the system is running and the system will restart immediately.
+However, this is fraught with peril -- your SD card can become corrupted or damaged.
+DON'T DO THIS.
+Instead, use the safe off switch described in the rest of this article.
+
+The connector to use for the reset switch will vary between Raspberry Pi models.
+Most models have a connector that is marked as RUN on board.
+Connecting that connector to ground will usually perform the reset action.
+
+On the Raspberry Pi 4, you need to instead use the connector marked GLOBAL_EN instead of RUN.
+You most likely will need to solder on a pair of headers if you don't want to solder your button
+directly to the connector.
+
+On Raspberry Pis prior to the Raspberry Pi 4, you can also use GPIO 3 (pin 5) as a reset connector, 
+but ONLY from the powered-off state.
+Unfortunately this also means losing your I2C connectivity.
+(See additional discussion about this connector below.)
 
 ## Using GPIO Zero
 With the GPIO Zero library module, the Python code to deal with a button 
