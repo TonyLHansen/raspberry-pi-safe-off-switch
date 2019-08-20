@@ -56,7 +56,7 @@ directly to the connector.
 
 On Raspberry Pis prior to the Raspberry Pi 4, you can also use GPIO 3 (pin 5) as a reset connector, 
 but ONLY from the powered-off state.
-Unfortunately this also means losing your I2C connectivity.
+Unfortunately this also means losing your I2C connectivity on those models.
 (See additional discussion about this connector below.)
 
 ## Using GPIO Zero
