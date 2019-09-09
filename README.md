@@ -62,9 +62,12 @@ Unfortunately this also means losing your I2C connectivity on those models.
 ## A Word About GPIO Numbering
 Unfortunately, if you look at documentation for the Raspberry Pi, you'll see 
 several different numbering systems for the GPIO pins.
+These have names such as the BCM numbers, or the WiringPi numbers, or a few others.
 The GPIO Zero library module uses what is known as the BCM numbering system for the pins.
 The quickest way to see which BCM GPIO number is connected to which pin is to use the
 program called ```pinout``` that comes as part of the GPIO Zero package.
+For clarity, this article will usually discuss both the BCM GPIO number and physical pin number, 
+and will avoid using any of the other numbering systems.
 
 ## Using GPIO Zero
 With the GPIO Zero library module, the Python code to deal with a button 
