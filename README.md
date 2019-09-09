@@ -50,7 +50,7 @@ The connector to use for the reset switch will vary between Raspberry Pi models.
 Most models have a connector that is marked as RUN on board.
 Connecting that connector to ground will usually perform the reset action.
 
-On the Raspberry Pi 4, you need to instead use the connector marked GLOBAL_EN instead of RUN.
+On the Raspberry Pi 4, you need to use the connector marked GLOBAL_EN instead of RUN.
 You most likely will need to solder on a pair of headers if you don't want to solder your button
 directly to the connector.
 
@@ -58,6 +58,13 @@ On Raspberry Pis prior to the Raspberry Pi 4, you can also use GPIO 3 (pin 5) as
 but ONLY from the powered-off state.
 Unfortunately this also means losing your I2C connectivity on those models.
 (See additional discussion about this connector below.)
+
+## A Word About GPIO Numbering
+Unfortunately, if you look at documentation for the Raspberry Pi, you'll see 
+several different numbering systems for the GPIO pins.
+The GPIO Zero library module uses what is known as the BCM numbering system for the pins.
+The quickest way to see which BCM GPIO number is connected to which pin is to use the
+program called ```pinout``` that comes as part of the GPIO Zero package.
 
 ## Using GPIO Zero
 With the GPIO Zero library module, the Python code to deal with a button 
