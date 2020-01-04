@@ -104,19 +104,16 @@ $ nano shutdown-press-simple.py
 $ chmod a+x shutdown-press-simple.py
 ```
 
-Then add a line to the end of /etc/rc.local to run it at boot time:
+Then add this line to the end of /etc/rc.local to run it at boot time:
 
 ```shell
-$ sudo su
-# echo '~pi/shutdown-press-simple.py'  >> /etc/rc.local
+~pi/shutdown-press-simple.py &
 ```
 
-If your /etc/rc.local ends with an `exit` statement, this new line will be ignored because it is after the exit statement.
-Run `tail /etc/rc.local` to check.
-If so, use your favorite editor to move the lines around so that the invocation of the python script goes before the exit statement.)
+If your /etc/rc.local ends with an `exit` statement, make certain that the new line is before the exit statement.
+Use your favorite editor to add the line.
 
 ```shell
-$ tail /etc/rc.local
 $ sudo nano /etc/rc.local
 ```
 
