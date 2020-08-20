@@ -36,8 +36,8 @@ This article focuses on doing something useful with those switches and LEDs.
 ![Example of Both an Off and Reset Switch on a Raspberry Pi Zero. Right angle headers are used for a compact connection. The switches are mounted directly onto an Adafruit case.](pictures/raspizero.jpg)
 
 ## Reset Buttons
-The safe off switch is complementary to a reset switch, 
-Issue 52 of TheMagPi had an excellent article on how to connect a Reset Button.
+The safe off switch is complementary to a reset switch;
+issue 52 of TheMagPi had an excellent article on how to connect a Reset Button.
 
 A reset button has several uses. The primary purpose is to start the Raspberry Pi up again from a powered-off state.
 It is preferred over pulling the power connector out and putting it back in.
