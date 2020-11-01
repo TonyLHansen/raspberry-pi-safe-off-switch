@@ -23,6 +23,7 @@ Issue 52 of TheMagPi had an excellent article on how to connect a Reset Button.
 
 * [Raspberry Pi](raspberrypi.org) (any model)
 * Momentary push button switches, such as [these](https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=Momentary+Push+Button+Switch+cable+motherboard)
+or [these](https://www.amazon.com/gp/product/B008DS188Y/).
 
 ## Pictures
 ### Safe Off Switch + Reset Using I2C GPIO Pin, Plus Other Low Profile Switches
