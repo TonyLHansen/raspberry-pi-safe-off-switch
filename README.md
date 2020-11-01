@@ -26,7 +26,7 @@ Issue 52 of TheMagPi had an excellent article on how to connect a Reset Button.
 
 ## Pictures
 ### Safe Off Switch + Reset Using I2C GPIO Pin, Plus Other Low Profile Switches
-![safe off switch plus reset using i2c gpio pin](pictures/low_profile_switches.png.jpg)
+![safe off switch plus reset using i2c gpio pin](pictures/low_profile_switches.png)
 
 ### Momentary switch connected to pins 39 and 40
 ![momentary switch connected to pins 39 and 40](pictures/raspi3.jpg)
