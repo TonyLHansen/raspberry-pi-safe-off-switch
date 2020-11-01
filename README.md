@@ -2,8 +2,6 @@
 
 Add a switch to your Raspberry Pi to safely shut it down without pulling the power.
 
-Note: a version of this project was published in The MagPi Magazine issue [#57](https://magpi.raspberrypi.org/issues/57/pdf). 
-
 ## Intro
 To keep prices down, the Raspberry Pi is missing something that most electronic devices come with:
 a switch to turn it on or off. That's okay, you say, we'll just pull the plug to turn it off. 
@@ -17,12 +15,19 @@ Lots of articles are available to tell you how to use a breadboard to connect a 
 to a Raspberry Pi's GPIO pins.
 This article focuses on doing something useful with those switches and LEDs.
 
+The safe off switch is complementary to a reset switch, which is the best method to start the
+Raspberry Pi back up again.
+Issue 52 of TheMagPi had an excellent article on how to connect a Reset Button.
+
 ## You'll Need
 
 * [Raspberry Pi](raspberrypi.org) (any model)
 * Momentary push button switches, such as [these](https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=Momentary+Push+Button+Switch+cable+motherboard)
 
 ## Pictures
+### Safe Off Switch + Reset Using I2C GPIO Pin, Plus Other Low Profile Switches
+![safe off switch plus reset using i2c gpio pin](pictures/low_profile_switches.png.jpg)
+
 ### Momentary switch connected to pins 39 and 40
 ![momentary switch connected to pins 39 and 40](pictures/raspi3.jpg)
 
@@ -34,42 +39,6 @@ This article focuses on doing something useful with those switches and LEDs.
 
 ### Example of Both an Off and Reset Switch on a Raspberry Pi Zero. Right angle headers are used for a compact connection. The switches are mounted directly onto an Adafruit case.
 ![Example of Both an Off and Reset Switch on a Raspberry Pi Zero. Right angle headers are used for a compact connection. The switches are mounted directly onto an Adafruit case.](pictures/raspizero.jpg)
-
-## Reset Buttons
-The safe off switch is complementary to a reset switch;
-issue 52 of TheMagPi had an excellent article on how to connect a Reset Button.
-
-A reset button has several uses. The primary purpose is to start the Raspberry Pi up again from a powered-off state.
-It is preferred over pulling the power connector out and putting it back in.
-
-Depending on which connector is being used for the reset switch, the reset button can ALSO be pressed 
-while the system is running and the system will restart immediately.
-However, this is fraught with peril -- your SD card can become corrupted or damaged.
-DON'T DO THIS.
-Instead, use the safe off switch described in the rest of this article.
-
-The connector to use for the reset switch will vary between Raspberry Pi models.
-Most models have a connector that is marked as RUN on board.
-Connecting that connector to ground will usually perform the reset action.
-
-On the Raspberry Pi 4, you need to use the connector marked GLOBAL_EN instead of RUN.
-You most likely will need to solder on a pair of headers if you don't want to solder your button
-directly to the connector.
-
-On Raspberry Pis prior to the Raspberry Pi 4, you can also use GPIO 3 (pin 5) as a reset connector, 
-but ONLY from the powered-off state.
-Unfortunately this also means losing your I2C connectivity on those models.
-(See additional discussion about this connector below.)
-
-## A Word About GPIO Numbering
-Unfortunately, if you look at documentation for the Raspberry Pi, you'll see 
-several different numbering systems for the GPIO pins.
-These have names such as the BCM numbers, or the WiringPi numbers, or a few others.
-The GPIO Zero library module uses what is known as the BCM numbering system for the pins.
-The quickest way to see which BCM GPIO number is connected to which pin is to use the
-program called ```pinout``` that comes as part of the GPIO Zero package.
-For clarity, this article will usually discuss both the BCM GPIO number and physical pin number, 
-and will avoid using any of the other numbering systems.
 
 ## Using GPIO Zero
 With the GPIO Zero library module, the Python code to deal with a button 
@@ -93,7 +62,7 @@ On a 26-pin header, GPIO 7 is similarly situated at the bottom there
 on pin 26, next to a ground connection on pin 25.
 
 If you don't mind losing your I2C connectivity, an alternative choice would be GPIO 3, 
-situated on pin 5, right next to the ground connection on pin 6.
+situated on pin 5.
 What is particularly nice about GPIO 3 is that it **also** acts as a reset pin 
 when the computer is powered down.
 By using GPIO 3, you can use a single button for **both** an ON and OFF switch.
@@ -106,16 +75,19 @@ $ nano shutdown-press-simple.py
 $ chmod a+x shutdown-press-simple.py
 ```
 
-Then add this line to the end of /etc/rc.local to run it at boot time:
+Then add a line to the end of /etc/rc.local to run it at boot time:
 
 ```shell
-~pi/shutdown-press-simple.py &
+$ sudo su
+# echo '~pi/shutdown-press-simple.py'  >> /etc/rc.local
 ```
 
-If your /etc/rc.local ends with an `exit` statement, make certain that the new line is before the exit statement.
-Use your favorite editor to add the line.
+If your /etc/rc.local ends with an `exit` statement, this new line will be ignored because it is after the exit statement.
+Run `tail /etc/rc.local` to check.
+If so, use your favorite editor to move the lines around so that the invocation of the python script goes before the exit statement.)
 
 ```shell
+$ tail /etc/rc.local
 $ sudo nano /etc/rc.local
 ```
 
