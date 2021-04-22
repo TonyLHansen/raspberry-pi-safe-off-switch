@@ -43,7 +43,10 @@ or [these](https://www.amazon.com/gp/product/B008DS188Y/).
 
 ## Using GPIO Zero
 With the GPIO Zero library module, the Python code to deal with a button 
-press becomes extremely simple. Assuming your button is connected between
+press becomes extremely simple.
+(If you are on a system that does not already have the gpiozero module, such as some of the lite distributions, you will see a message such as 
+`ModuleNotFoundError: No module named 'gpiozero'`. If that is try, then install the module using a command such as `sudo apt install python3-gpiozero`.)
+Assuming your button is connected between
 GPIO 21 and Ground, the code can look like as easy as [this](python/shutdown-press-simple.py):
 
 ``` python
