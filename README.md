@@ -44,8 +44,9 @@ or [these](https://www.amazon.com/gp/product/B008DS188Y/).
 ## Using GPIO Zero
 With the GPIO Zero library module, the Python code to deal with a button 
 press becomes extremely simple.
-(If you are on a system that does not already have the gpiozero module, such as some of the lite distributions, you will see a message such as 
-`ModuleNotFoundError: No module named 'gpiozero'`. If that is try, then install the module using a command such as `sudo apt install python3-gpiozero`.)
+(If you are on a system that does not already have the gpiozero module, such as some of the lite distributions,
+you will see a message such as `ModuleNotFoundError: No module named 'gpiozero'`.
+If that is true, then install the module using a command such as `sudo apt install python3-gpiozero`.)
 Assuming your button is connected between
 GPIO 21 and Ground, the code can look like as easy as [this](python/shutdown-press-simple.py):
 
@@ -83,7 +84,7 @@ Then add a line to the end of /etc/rc.local to run it at boot time:
 
 ```shell
 $ sudo su
-# echo '~pi/shutdown-press-simple.py'  >> /etc/rc.local
+# echo '~pi/shutdown-press-simple.py &'  >> /etc/rc.local
 ```
 
 If your /etc/rc.local ends with an `exit` statement, this new line will be ignored because it is after the exit statement.
