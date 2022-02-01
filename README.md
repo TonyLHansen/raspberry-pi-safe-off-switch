@@ -19,6 +19,9 @@ The safe off switch is complementary to a reset switch, which is the best method
 Raspberry Pi back up again.
 Issue 52 of TheMagPi had an excellent article on how to connect a Reset Button.
 
+(A version of this article appeared in
+[Issue 57](https://magpi.raspberrypi.com/issues/57) of The MagPi.)
+
 ## You'll Need
 
 * [Raspberry Pi](raspberrypi.org) (any model)
