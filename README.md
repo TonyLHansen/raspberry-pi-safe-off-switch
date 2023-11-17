@@ -15,7 +15,7 @@ Lots of articles are available to tell you how to use a breadboard to connect a 
 to a Raspberry Pi's GPIO pins.
 This article focuses on doing something useful with those switches and LEDs.
 
-The safe off switch is complementary to a reset switch, which is the best method to start the
+The safe off switch is complementary to a reset switch (an on switch), which is the best method to start the
 Raspberry Pi back up again.
 Issue 52 of TheMagPi had an excellent article on how to connect a Reset Button.
 
