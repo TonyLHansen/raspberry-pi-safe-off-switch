@@ -25,8 +25,15 @@ Raspberry Pi back up again.
 ## You'll Need
 
 * [Raspberry Pi](raspberrypi.org) (any model)
-* Momentary push button switches, such as [these](https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=Momentary+Push+Button+Switch+cable+motherboard)
+* Momentary normally open (NO) push button switches, such as [these](https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=Momentary+Push+Button+Switch+cable+motherboard)
 or [these](https://www.amazon.com/gp/product/B008DS188Y/).
+
+## Special Note for Raspberry Pi 5
+The Raspberry Pi 5 **has** a built-in switch that both turns the Raspberry Pi on AND off.
+That is, it acts as **both** an _off_ switch and a _reset_ switch.
+There is also a jumper (J2) between the run time clock battery connector and the edge of the board.
+You can connect a momentary normally open push button switch, as described above, to that jumper;
+it is [documented](https://www.raspberrypi.com/documentation/computers/raspberry-pi-5.html) to act the exact same way as the built-in power button.
 
 ## Pictures
 ### Safe Off Switch + Reset Using I2C GPIO Pin, Plus Other Low Profile Switches
